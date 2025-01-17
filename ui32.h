@@ -29,7 +29,14 @@ LRESULT CALLBACK WindowProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam) 
     switch (uMsg) {
         case WM_DESTROY:
 			for(int i=0;i<widgets_amount; i++){
-				DeleteObject(widgets[i]);
+				LOGFONT lf;
+    				int is_font = GetObject(widgets[i], sizeof(LOGFONT), &lf);
+				if(is_font){
+					DeleteObject(widgets[i]);
+				} else {
+					DestroyWindow(widgets[i]);
+				}
+			
 			}
 			free(widgets);
 			free(widgetInfos); 
