@@ -1,7 +1,7 @@
 # ui32
 A Win32 utility library.
 
-Wraps around existing Win32 APIs to make them easier to use (mabye even "higher-level").
+Wraps around existing Win32 APIs to make them easier to use (maybe even "higher-level").
 Note: define EventCallback() even if your program doesn't use WM_COMMAND, as the linker complains if you don't.
 
 # Types:
