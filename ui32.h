@@ -1,11 +1,6 @@
 #include <windows.h>
 #include <stdlib.h>
 #include <stdbool.h>
-#if !defined(_WIN32)
-int main(){
-	return 1;
-}
-#endif
 // Utility Library for Win32
 // ui32.h
 #ifndef GWLP_STYLE
