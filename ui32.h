@@ -157,33 +157,38 @@ HWND TextField(HWND hwnd, LPCSTR text, int x, int y, int width, int height){
 	return textField;
 }
 HFONT Font(LPCSTR fontName, int height, bool bold, bool italic){
+	HFONT user_font = NULL;
 	if(bold && !italic){
-		return CreateFont(
+		user_font = CreateFont(
 	    	height, 0, 0, 0, FW_BOLD, 0, 0, 0, 
 			ANSI_CHARSET, OUT_DEFAULT_PRECIS, CLIP_DEFAULT_PRECIS, DEFAULT_QUALITY, DEFAULT_PITCH,       
 	    	fontName              
 		);	
 	}
 	else if(!bold && italic){
-		return CreateFont(
+		user_font = CreateFont(
 	    	height, 0, 0, 0, FW_NORMAL, 1, 0, 0, 
 			ANSI_CHARSET, OUT_DEFAULT_PRECIS, CLIP_DEFAULT_PRECIS, DEFAULT_QUALITY, DEFAULT_PITCH,       
 	    	fontName              
 		);	
 	}
 	else if(bold && italic){
-		return CreateFont(
+		user_font = CreateFont(
 	    	height, 0, 0, 0, FW_BOLD, 1, 0, 0, 
 			ANSI_CHARSET, OUT_DEFAULT_PRECIS, CLIP_DEFAULT_PRECIS, DEFAULT_QUALITY, DEFAULT_PITCH,       
 	    	fontName              
 		);	
 	}else{
-		return CreateFont(
+		user_font = CreateFont(
 	    	height, 0, 0, 0, FW_NORMAL, 0, 0, 0, 
 			ANSI_CHARSET, OUT_DEFAULT_PRECIS, CLIP_DEFAULT_PRECIS, DEFAULT_QUALITY, DEFAULT_PITCH,       
 	    	fontName              
 		);	
 	}
+	widgets_amount++; 
+    	widgets = realloc(widgets, widgets_amount * sizeof(HFONT));
+	widgets[widgets_amount - 1] = user_font;
+	return user_font;
 }
 HBITMAP Image(LPCSTR path){
 	return (HBITMAP)LoadImage(
