@@ -34,7 +34,7 @@ LRESULT CALLBACK WindowProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam) 
     switch (uMsg) {
         case WM_DESTROY:
 			for(int i=0;i<widgets_amount; i++){
-				DestroyWindow(widgets[i]);
+				DeleteObject(widgets[i]);
 			}
 			free(widgets);
 			free(widgetInfos); 
@@ -96,7 +96,7 @@ BOOL RegisterAppClass(LPCSTR icon) {
 	}
     return RegisterClass(&wc);
 }
-HWND Window(LPCSTR title, int width, int height, int x, int y){
+HWND Window(LPCSTR title, int x, int y, int width, int height){
 	return CreateWindowEx(
         0, wc.lpszClassName,
         title,
@@ -186,7 +186,7 @@ HFONT Font(LPCSTR fontName, int height, bool bold, bool italic){
 		);	
 	}
 	widgets_amount++; 
-    	widgets = realloc(widgets, widgets_amount * sizeof(HFONT));
+    widgets = realloc(widgets, widgets_amount * sizeof(HFONT));
 	widgets[widgets_amount - 1] = user_font;
 	return user_font;
 }
