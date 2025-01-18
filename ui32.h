@@ -73,7 +73,7 @@ LRESULT CALLBACK WindowProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam) 
 		    // If no custom color is set, return the default system background
 		    if(WndBgColor == NULL){
 		    	return (LRESULT)GetSysColorBrush(COLOR_WINDOW);
-			}else{
+			} else {
 				return (LRESULT)WndBgColor;
 			}
 		}
@@ -119,7 +119,7 @@ HWND Label(HWND hwnd, LPCSTR text, int x, int y, int width, int height){
     	"Tahoma"              
 	), TRUE); // Set default font
 	widgets_amount++; 
-    widgets = realloc(widgets, widgets_amount * sizeof(HWND));
+    	widgets = realloc(widgets, widgets_amount * sizeof(HWND));
 	widgets[widgets_amount - 1] = label;
 	return label;
 }
@@ -136,7 +136,7 @@ HWND Button(HWND hwnd, LPCSTR text, int id, int x, int y, int width, int height)
     	"Tahoma"              
 	), TRUE); // Set default font
 	widgets_amount++; 
-    widgets = realloc(widgets, widgets_amount * sizeof(HWND));
+    	widgets = realloc(widgets, widgets_amount * sizeof(HWND));
 	widgets[widgets_amount - 1] = button;
 	return button;
 
@@ -154,12 +154,13 @@ HWND TextField(HWND hwnd, LPCSTR text, int x, int y, int width, int height){
     	"Tahoma"              
 	), TRUE); // Set default font
 	widgets_amount++; 
-    widgets = realloc(widgets, widgets_amount * sizeof(HWND));
+    	widgets = realloc(widgets, widgets_amount * sizeof(HWND));
 	widgets[widgets_amount - 1] = textField;
 	return textField;
 }
 HFONT Font(LPCSTR fontName, int height, bool bold, bool italic){
 	HFONT user_font = NULL;
+	// TODO: simplify this "if else" chain
 	if(bold && !italic){
 		user_font = CreateFont(
 	    	height, 0, 0, 0, FW_BOLD, 0, 0, 0, 
@@ -188,7 +189,7 @@ HFONT Font(LPCSTR fontName, int height, bool bold, bool italic){
 		);	
 	}
 	widgets_amount++; 
-    widgets = realloc(widgets, widgets_amount * sizeof(HFONT));
+    	widgets = realloc(widgets, widgets_amount * sizeof(HFONT));
 	widgets[widgets_amount - 1] = user_font;
 	return user_font;
 }
@@ -250,7 +251,13 @@ void SetWidgetColors(HWND widget, COLORREF fg, COLORREF bg) {
     widgetInfos[widgetInfosAmount - 1].fgColor = fg;
     widgetInfos[widgetInfosAmount - 1].bgColor = bg;
 }
-
+void SetVisible(HWND widget, bool visible){
+	if(visible){
+		ShowWindow(widget, SW_SHOW);
+	} else {
+		ShowWindow(widget, SW_HIDE);
+	}
+}
 
 void SetWindowBg(COLORREF NewBg){
 	WndBgColor = CreateSolidBrush(NewBg);
@@ -264,7 +271,6 @@ void CmdExec(LPCSTR cmd, bool hide){
 	}
 	
 }
-
 bool isWinXP() {
     OSVERSIONINFOEX osvi;
     ZeroMemory(&osvi, sizeof(OSVERSIONINFOEX));
@@ -281,7 +287,6 @@ bool isWinXP() {
     return false; // Return false as a failsafe
 }
 void WindowLoop(HWND hwnd){
-	ShowWindow(hwnd, SW_SHOW);
     UpdateWindow(hwnd);
     MSG msg;
     while (GetMessage(&msg, NULL, 0, 0)) {
