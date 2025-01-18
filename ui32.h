@@ -227,6 +227,9 @@ void SetTitle(HWND hwnd, LPCSTR text){
 		SetWindowText(hwnd, text);
 	}
 }
+void SetImage(HWND control, HBITMAP image){
+	SetWindowText(control, image);
+]
 
 void SetWidgetColors(HWND widget, COLORREF fg, COLORREF bg) {
     for (int i = 0; i < widgetInfosAmount; i++) {
