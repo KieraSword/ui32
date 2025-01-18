@@ -13,6 +13,7 @@ SetWindowBg() (Parametres: RGB Brush)
 ## Widgets:
 SetText() (Parameters: Widget, New Text/Label)  
 SetWidgetColors (Parameters: Widget, Foreground Color, Background Color)  
+SetVisible (Parameters: Widget, Visibility (Bool))  
 Label() (Parameters: Parent, Label, x, y, width, height)  
 Button() (Parameters: Parent, Label, ID, x, y, width, height)  
 TextField() (Parameters: Parent, Preset Text, x, y, width, height)  
