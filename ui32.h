@@ -14,10 +14,10 @@
 #define font HFONT
 #define bitmap HBITMAP
 #define color COLORREF
-void EventCallback(int id); // User defines this to WM_COMMAND functionality without actually touching WM_COMMAND or WinProc
+void EventCallback(int id); // User defines this to use WM_COMMAND functionality without actually touching WM_COMMAND or WinProc
 int widgets_amount = 0;
 HWND *widgets = NULL;
-HBRUSH WndBgColor = NULL;
+HBRUSH WndBgColor = COLOR_WINDOW; // System's current theme's window background color
 typedef struct {
     HWND hwnd;           
     COLORREF fgColor;    
@@ -47,11 +47,7 @@ LRESULT CALLBACK WindowProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam) 
         case WM_PAINT: {
             PAINTSTRUCT ps;
             HDC hdc = BeginPaint(hwnd, &ps);
-            if(WndBgColor == NULL){
-            	FillRect(hdc, &ps.rcPaint, GetSysColorBrush(COLOR_WINDOW));
-			}else{
-				FillRect(hdc, &ps.rcPaint, WndBgColor);
-			}
+			FillRect(hdc, &ps.rcPaint, WndBgColor);
             EndPaint(hwnd, &ps);
             return 0;
         } 
@@ -70,12 +66,8 @@ LRESULT CALLBACK WindowProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam) 
 		        }
 		    }
 		    
-		    // If no custom color is set, return the default system background
-		    if(WndBgColor == NULL){
-		    	return (LRESULT)GetSysColorBrush(COLOR_WINDOW);
-			} else {
-				return (LRESULT)WndBgColor;
-			}
+		    // If no custom color is set, return the current window background
+			return (LRESULT)WndBgColor;
 		}
 
         case WM_COMMAND:{
