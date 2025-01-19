@@ -222,6 +222,11 @@ void SetFont(HWND control, HFONT font){
 void SetText(HWND control, LPCSTR text){
 	SetWindowText(control, TEXT(text));
 }
+char GetText(HWND control){
+	char buffer[256];
+	GetWindowText(control, buffer, sizeof(buffer));
+	return buffer;
+}
 void SetTitle(HWND hwnd, LPCSTR text){
 	if(GetMenu(hwnd) == NULL){
 		SetWindowText(hwnd, text);
