@@ -222,7 +222,7 @@ void SetFont(HWND control, HFONT font){
 void SetText(HWND control, LPCSTR text){
 	SetWindowText(control, TEXT(text));
 }
-char GetText(HWND control){
+char* GetText(HWND control){
 	char buffer[256];
 	GetWindowText(control, buffer, sizeof(buffer));
 	return buffer;
