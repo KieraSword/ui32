@@ -271,20 +271,32 @@ void CmdExec(LPCSTR cmd, bool hide){
 	}
 	
 }
-bool isWinXP() {
+const char* GetWindowsVer() {
     OSVERSIONINFOEX osvi;
     ZeroMemory(&osvi, sizeof(OSVERSIONINFOEX));
     osvi.dwOSVersionInfoSize = sizeof(OSVERSIONINFOEX);
 	
     if (GetVersionEx((OSVERSIONINFO*)&osvi)) {
-        if (osvi.dwMajorVersion != 5 || osvi.dwMinorVersion != 1) {
-            return false; 
-        }
-        if (osvi.dwMajorVersion == 5 || osvi.dwMinorVersion == 1) {
-            return true; 
+	if (osvi.dwMajorVersion == 5 && osvi.dwMinorVersion == 0) {
+            return "2000"; 
     	}
+	if (osvi.dwMajorVersion == 5 && osvi.dwMinorVersion == 1) {
+            return "xp"; 
+    	}
+	if (osvi.dwMajorVersion == 6) {
+            return "vista"; 
+        }
+	if (osvi.dwMajorVersion == 7) {
+            return "7"; 
+        }
+	if (osvi.dwMajorVersion == 8) {
+            return "8"; 
+        }
+        if (osvi.dwMajorVersion == 10) {
+            return "10"; 
+        }
     }
-    return false; // Return false as a failsafe
+    return "null"; // Return null as a failsafe
 }
 void WindowLoop(HWND hwnd){
     UpdateWindow(hwnd);
