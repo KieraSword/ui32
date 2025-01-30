@@ -252,10 +252,10 @@ void setvisible(HWND widget, bool visible){
 	}
 }
 
-void SetWindowBg(COLORREF NewBg){
+void setwindowbg(COLORREF NewBg){
 	WndBgColor = CreateSolidBrush(NewBg);
 }
-void CmdExec(LPCSTR cmd, bool hide){
+void cmdexec(LPCSTR cmd, bool hide){
 	if(hide){
 		WinExec(cmd, SW_HIDE);
 	}
