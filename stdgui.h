@@ -229,7 +229,7 @@ void setimage(HWND control, HBITMAP image){
 	SetWindowText(control, image);
 }
 
-void setWidgetcolors(HWND widget, COLORREF fg, COLORREF bg) {
+void setwidgetcolors(HWND widget, COLORREF fg, COLORREF bg) {
     for (int i = 0; i < widgetInfosAmount; i++) {
         if (widgetInfos[i].hwnd == widget) {
             widgetInfos[i].fgColor = fg;
